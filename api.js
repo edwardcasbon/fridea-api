@@ -6,11 +6,6 @@ var mongoose = require('mongoose');
 // App config.
 var config = require('./config.json');
 
-// Express.
-var app = express();
-app.use(bodyParser.urlencoded({ extended:true }));
-app.use(bodyParser.json());
-
 // DB connection.
 mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.database);
 var db = mongoose.connection;
@@ -18,6 +13,11 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
     console.log('We\'re connected');
 });
+
+// Express.
+var app = express();
+app.use(bodyParser.urlencoded({ extended:true }));
+app.use(bodyParser.json());
 
 // Routes.
 app.use(function(req, res, next){
