@@ -21,9 +21,11 @@ app.use(bodyParser.json());
 
 // Routes.
 app.use(function(req, res, next){
+    req.authSecret = config.auth.secret;
     req.db = db;
     next();
 });
+app.use('/authenticate', require('./routes/authenticate'));
 app.use('/ideas', require('./routes/ideas'));
 app.use('/users', require('./routes/users'));
 
