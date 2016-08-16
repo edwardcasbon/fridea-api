@@ -1,18 +1,36 @@
 var IdeaSchema = require('../schemas/idea');
 
 var Idea = {
-    create: function(idea) {
-        var idea = new IdeaSchema();
-        idea.title = 'My first idea';
-        idea.save();
-
-        return 'Creating an idea';
+    status: {
+        OPEN: 0,
+        COMPLETED: 1,
+        ARCHIVED: 2,
+        DELETED: 3
     },
 
-    getAllIdeas: function() {
-        // @todo Expand this so you can either find all the users' ideas or all
-        // public ideas etc.
+    createOne: function(idea) {
+        var idea = new IdeaSchema(idea);
+        return idea.save();
+    },
+
+    getAll: function() {
         return IdeaSchema.find({}).exec();
+    },
+
+    getOne: function(id) {
+        return IdeaSchema.findById(id).exec();
+    },
+
+    updateOne: function(id, idea) {
+        return IdeaSchema.findByIdAndUpdate(id, idea).exec();
+    },
+
+    deleteOne: function(id) {
+        var idea = {
+            status: this.status.DELETED
+        };
+
+        return this.updateOne(id, idea);
     }
 };
 

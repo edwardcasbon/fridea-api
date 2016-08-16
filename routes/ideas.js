@@ -7,22 +7,39 @@ var Idea = require('../models/idea');
 
 // Get all ideas.
 router.get('', function(req, res){
-    Idea.getAllIdeas().then(function(ideas){
+    Idea.getAll(req.query).then(function(ideas){
         res.json(ideas);
     });
 });
 
 // Get a specific idea.
-router.get('/:id', function(req, res){
-    res.json('@todo Return a specific idea');
+router.get(':id', function(req, res){
+    Idea.getOne(req.params.id).then(function(idea){
+        res.json(idea);
+    });
 });
 
 // Create an idea.
 router.post('', function(req, res){
-    // console.log(req.query);
-    // console.log(req.db);
-    var idea = Idea.create();
-    res.json(idea);
+    Idea.createOne(req.query).then(function(idea){
+        res.json(idea);
+    });
+});
+
+// Update an idea.
+router.put(':id', function(req, res){
+    Idea.updateOne(req.params.id, req.query).then(function(idea){
+        res.json(idea);
+    });
+});
+
+// Delete an idea.
+router.delete(':id', function(req, res){
+    Idea.deleteOne(req.params.id).then(function(idea){
+
+        // Return true or false
+        return true;
+    });
 });
 
 // Return router.

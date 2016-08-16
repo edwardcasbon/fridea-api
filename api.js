@@ -2,6 +2,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
+// App config.
 var config = require('./config.json');
 
 // Express.
@@ -14,7 +16,7 @@ mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + co
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
-    console.log('Were connected');
+    console.log('We\'re connected');
 });
 
 // Routes.

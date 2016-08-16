@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 var ideaSchema = new mongoose.Schema({
-    //_id: Number,
     title: String,
     description: String,
     rating: Number,
